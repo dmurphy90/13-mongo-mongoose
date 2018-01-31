@@ -3,6 +3,7 @@
 const Toy = require('../model/toy.js');
 const bodyParser = require('body-parser').json();
 const errorHandler = require('../lib/error-handler.js');
+const debug = require('debug')('http:Route-Toys');
 
 module.exports = function(router) {
 
@@ -10,23 +11,33 @@ module.exports = function(router) {
     .get((req, res) => {
     
       if(req.params._id) {
+        debug('Finding a specific thing');
         return Toy.findById(req.params._id)
           .then(toy => res.status(200).json(toy))
           .catch(err => errorHandler(err, res));
       }
-
-      //handle case of no ID here
+      debug('Finding all the things');
+      return Toy.find({}, (req, res)) 
+        .then(toys => res.status(200).json(toys))
+        .catch(err => errorHandler(err, res));
     })
 
     .post(bodyParser, (req, res) => {
+      debug('Creating a thing');
       new Toy(req.body).save()
         .then(toy => res.status(201).json(toy))
         .catch(err => errorHandler(err, res));
     })
     .put(bodyParser, (req, res) => {
-
+      debug('Updating a thing');
+      return Toy.findByIdAndUpdate(req.params._id, req.params.body)
+        .then(() => res.status(204).send())
+        .catch(err => errorHandler(err, res));
     })
     .delete((req, res) => {
-
+      debug('Deleting a thing');
+      return Toy.findByIdAndRemove(req.params._id)
+        .then(() => res.status(204).send())
+        .catch(err => errorHandler(err, res));
     });
 };
