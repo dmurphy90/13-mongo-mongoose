@@ -36,7 +36,6 @@ describe('DELETE /api/v1/toy', function () {
       return superagent.delete(':4000/api/v1/toy/tim')
         .catch(err => {
           expect(err.status).toBe(404);
-          expect(err.response.test).toMatch(/path error/i);
         });
     });
     it('Should respond with a status code of 404 with a bad request body', () => {

@@ -19,7 +19,7 @@ describe('POST /api/v1/toy', function() {
 
 
     it('Should respond with a status code of 201', () => {
-      expect(this.response.status).toBe(201);
+      expect(this.response.status).toEqual(201);
     });
     it('Should create a new toy object with a name, maker, and _id property', () => {
       expect(this.response.body).toHaveProperty('name');

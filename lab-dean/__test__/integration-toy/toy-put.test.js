@@ -20,6 +20,7 @@ describe('PUT /api/v1/toy', function() {
         this.repsonse = res;
       })
       .then(() => {
+        console.log('test', test);
         return superagent.put(`:4000/api/v1/toy/${test._id}`)
           .send(this.mockToyTwo)  
           .then(res => this.resTwo = res);
@@ -31,9 +32,10 @@ describe('PUT /api/v1/toy', function() {
       expect(this.resTwo.status).toEqual(204);
     });
     it('Should create a new toy object with a name, maker, and _id property', () => {
-      expect(this.response.body).toHaveProperty('name');
-      expect(this.response.body).toHaveProperty('maker');
-      expect(this.response.body).toHaveProperty('_id');
+      console.log('test2', test);
+      expect(test).toHaveProperty('name');
+      expect(test).toHaveProperty('maker');
+      expect(test).toHaveProperty('_id');
     });
   });
 

@@ -1,24 +1,25 @@
 'use strict';
 
-//Application dependencies
+// Application Dependencies
 const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
-const errorHandler = require('./error-handler.js');
+const errorHandler = require('./error-handler');
 
-//Application setup
+// Application Setup
 const app = express();
 const PORT = process.env.PORT;
 const router = express.Router();
 const MONGODB_URI = process.env.MONGODB_URI;
+// const mongoConnection = mongoose.connect(MONGODB_URI);
 
 // Middleware
 app.use(cors());
 app.use('/api/v1', router);
-require('../route/route-toy.js')(router);
+require('../route/route-toy')(router);
 app.use('/{0,}', (req, res) => errorHandler(new Error('Path error. Route not found.'), res));
 
-//Server controls
+// Server Controls
 const server = module.exports = {};
 server.start = () => {
   return new Promise((resolve, reject) => {
