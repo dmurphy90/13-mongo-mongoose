@@ -17,7 +17,8 @@ module.exports = function(router) {
           .catch(err => errorHandler(err, res));
       }
       debug('Finding all the things');
-      return Toy.find({}, (req, res)) 
+      return Toy.find()
+        .then(toys => toys.map(toy => toy.name)) 
         .then(toys => res.status(200).json(toys))
         .catch(err => errorHandler(err, res));
     })
@@ -30,14 +31,14 @@ module.exports = function(router) {
     })
     .put(bodyParser, (req, res) => {
       debug('Updating a thing');
-      return Toy.findByIdAndUpdate(req.params._id, req.params.body)
-        .then(() => res.status(204).send())
+      return Toy.findByIdAndUpdate(req.params._id, req.body)
+        .then(() => res.sendStatus(204))
         .catch(err => errorHandler(err, res));
     })
     .delete((req, res) => {
       debug('Deleting a thing');
       return Toy.findByIdAndRemove(req.params._id)
-        .then(() => res.status(204).send())
+        .then(() => res.sendStatus(204))
         .catch(err => errorHandler(err, res));
     });
 };

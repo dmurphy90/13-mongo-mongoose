@@ -61,6 +61,7 @@ typings/
 .env
 test.env
 
-
+# USER DEFINED
+**/db
 
 # End of https://www.gitignore.io/api/node

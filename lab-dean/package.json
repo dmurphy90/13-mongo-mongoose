@@ -19,6 +19,9 @@
     "stop-db": "killall mongod"
   },
   "jest": {
+    "setupFiles": [
+      "./__test__/lib/jest-setup.js"
+    ],
     "verbose": true,
     "testEnvironment": "node",
     "collectCoverage": true,
@@ -35,7 +38,11 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {},
+  "devDependencies": {
+    "faker": "^4.1.0",
+    "jest": "^22.1.4",
+    "superagent": "^3.8.2"
+  },
   "dependencies": {
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
